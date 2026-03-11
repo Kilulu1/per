@@ -31,7 +31,7 @@ git merge conflict-branch
 git checkout --ours file2.txt
 git add file2.txt
 git commit -m "Слито conflict-branch с разрешением конфликта в пользу основной ветки"
-git remote add origin https://github.com/your-username/your-repo.git
+git remote add origin https://github.com/Kilulu1/per
 git branch -M main
 git push -u origin main
 git checkout -b new-feature
