@@ -33,7 +33,7 @@ git merge conflict-branch || true
 git checkout --ours file2.txt
 git add file2.txt
 git commit -m "Слито conflict-branch с разрешением конфликта в пользу основной ветки"
-git remote add origin https://github.com/Kilulu1/per/tree/main
+git remote add origin https://github.com/Kilulu1/per/blob/main/README.md?plain=1
 git branch -M main
 git push -u origin main
 git checkout -b new-feature
@@ -42,7 +42,7 @@ git add file3.txt
 git commit -m "Изменен file3.txt в new-feature"
 git push -u origin new-feature
 cd ..
-git clone https://github.com/Kilulu1/per/tree/main my-git-project-clone
+git clone https://github.com/Kilulu1/per/blob/main/README.md?plain=1 my-git-project-clone
 cd my-git-project-clone
 git fetch origin new-feature
 git checkout new-feature
