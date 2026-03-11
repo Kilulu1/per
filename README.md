@@ -1,59 +1,62 @@
-mkdir my-git-project
-cd my-git-project
+mkdir git-practice
+cd git-practice
 git init
-echo "Файл 1 - начальное содержание" > file1.txt
-echo "Файл 2 - начальное содержание" > file2.txt
-echo "Файл 3 - начальное содержание" > file3.txt
-git add file1.txt file2.txt
-git commit -m "Добавлены файлы 1 и 2"
-git add file3.txt
-git commit -m "Добавлен файл 3"
-echo "Дополнительные данные в файл 1" >> file1.txt
-git add file1.txt
-git commit -m "Добавлены данные в file1.txt"
-git branch feature-branch
-git checkout feature-branch
-echo "Полностью новые данные в файле 1 в ветке feature-branch" > file1.txt
-git add file1.txt
-git commit -m "Полное изменение file1.txt в feature-branch"
+echo "Первый файл - начальное содержимое" > pal.txt
+echo "Второй файл - начальное содержимое" > pil.txt
+echo "Третий файл - начальное содержимое" > pul.txt
+git add pal.txt pil.txt
+git commit -m "Коммит 2 файлов (pal и pil)"
+git add pul.txt
+git commit -m "Коммит оставшегося файла pul"
+echo "Добавленные данные в первый файл" >> pal.txt
+git add pal.txt
+git commit -m "Добавлены данные в pal"
+git checkout -b feature-branch-1
+echo "Полностью измененное содержимое первого файла в ветке feature-branch-1" > pal.txt
+git add pal.txt
+git commit -m "Полное изменение pal в ветке feature-branch-1"
 git checkout main
-echo "Данные добавлены в файл 2 в основной ветке" >> file2.txt
-git add file2.txt
-git commit -m "Добавлены данные в file2.txt в main"
-git checkout -b conflict-branch
-echo "Полностью измененные данные в файле 2 в конфликтующей ветке" > file2.txt
-git add file2.txt
-git commit -m "Полное изменение file2.txt в conflict-branch"
+git merge feature-branch-1
+echo "Добавленные данные во второй файл" >> pil.txt
+git add pil.txt
+git commit -m "Добавлены данные в pil"
+git checkout -b feature-branch-2
+echo "Полностью измененное содержимое второго файла в ветке feature-branch-2" > pil.txt
+git add pil.txt
+git commit -m "Полное изменение pil в ветке feature-branch-2"
 git checkout main
-git add file2.txt
-git commit -m "Полное изменение file2.txt в основной ветке"
-git merge conflict-branch
-git checkout --ours file2.txt
-git add file2.txt
-git commit -m "Слито conflict-branch с разрешением конфликта в пользу основной ветки"
-git remote add origin https://github.com/Kilulu1/per
+echo "Полностью измененное содержимое второго файла в основной ветке" > pil.txt
+git add pil.txt
+git commit -m "Полное изменение pil в основной ветке"
+git merge feature-branch-2
+echo "Полностью измененное содержимое второго файла в основной ветке" > pil.txt
+git add pil.txt
+git commit -m "Resolved merge conflict - kept main version"
+git remote add origin https://github.com/Kilulu1/per.git
 git branch -M main
 git push -u origin main
-git checkout -b new-feature
-echo "Изменения в файле 3 в новой ветке" > file3.txt
-git add file3.txt
-git commit -m "Изменен file3.txt в new-feature"
-git push -u origin new-feature
+echo "Изменение в третьем файле перед созданием ветки" > pul.txt
+git checkout -b feature-branch-3
+git add pul.txt
+git commit -m "Изменение pul в ветке feature-branch-3"
+git push -u origin feature-branch-3
 cd ..
-git clone https://github.com/Kilulu1/per my-git-project-clone
-cd my-git-project-clone
-git fetch origin new-feature
-git checkout new-feature
+git clone https://github.com/Kilulu1/per.git git-practice-clone
+cd git-practice-clone
+git fetch origin feature-branch-3
+git checkout feature-branch-3
 git checkout main
-git merge new-feature
+git merge feature-branch-3
 git push origin main
-cd ../my-git-project
-echo "Локальные изменения в файле 2" >> file2.txt
-git add file2.txt
-git commit -m "Локальные изменения file2.txt"
+cd ../git-practice
+echo "Изменение во втором файле в оригинальном репозитории" >> pil.txt
+git add pil.txt
+git commit -m "Изменение pil в оригинальном репозитории"
 git push
 git fetch origin
-git status
+git merge origin/main --allow-unrelated-histories
+git add pil.txt
+git commit -m "Merge remote changes"
+git push
 git log --oneline --graph --all
-git log origin/main --oneline
-git status
+git push --all origin
