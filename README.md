@@ -59,4 +59,4 @@ git add pil.txt
 git commit -m "Merge remote changes"
 git push
 git log --oneline --graph --all
-git push --all origi
+git push --all origin
